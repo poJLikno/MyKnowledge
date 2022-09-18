@@ -1,0 +1,62 @@
+system("pause"); - Приостанавливает командную консоль.
+setlocale(LC_ALL, "Russian"); - Русский текст в консоли.
+
+покраска текста
+{
+// устанавливает цвет текста и подложки  в консоли  
+// 2 - значение цвета фона, 0 - значение цвета текста 
+system("color 20" );
+cout << "TEXT";
+
+Атрибуты цветов задаются в виде ДВУХ шестнадцатеричных цифр -- первая задает цвет фона, а вторая определяет цвет переднего плана. Каждая цифра может иметь следующие значения:
+
+    	0 = Черный 8 = Серый
+    	1 = Синий 9 = Светло-синий
+    	2 = Зеленый A = Светло-зеленый
+    	3 = Голубой B = Светло-голубой
+    	4 = Красный C = Светло-красный
+    	5 = Лиловый D = Светло-лиловый
+    	6 = Желтый E = Светло-желтый
+    	7 = Белый F = Ярко-белый
+
+В Visual C++ установка цвета последующего текста, например, в красный цвет делается так:
+
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(handle, FOREGROUND_RED);
+
+Для сборки подключить windows.h.
+
+	    Black       = 0,
+            Grey        = FOREGROUND_INTENSITY,
+            LightGrey   = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE,
+            White       = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+            Blue        = FOREGROUND_BLUE,
+            Green       = FOREGROUND_GREEN,
+            Cyan        = FOREGROUND_GREEN | FOREGROUND_BLUE,
+            Red         = FOREGROUND_RED,
+            Purple      = FOREGROUND_RED   | FOREGROUND_BLUE,
+            LightBlue   = FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
+            LightGreen  = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
+            LightCyan   = FOREGROUND_GREEN | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
+            LightRed    = FOREGROUND_RED   | FOREGROUND_INTENSITY,
+            LightPurple = FOREGROUND_RED   | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
+            Orange      = FOREGROUND_RED   | FOREGROUND_GREEN,
+            Yellow      = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_INTENSITY.
+
+	SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), LightGreen);
+        cout << "bla bla bla\n";
+        SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ),  0x0f); // вернем обратно
+}
+
+
+
+keybd_event(0x00, MapVirtualKey(0x00, 0), 0, 0);
+              ^                   ^       ^
+              |                   |       |
+         Код клавиши      Код клавиши   Нажать клавишу
+
+keybd_event(0x00, MapVirtualKey(0x00, 0), KEYEVENTF_KEYUP, 0);
+              ^                   ^              ^
+              |                   |              |
+         Код клавиши         Код клавиши     Отпустить клавишу
