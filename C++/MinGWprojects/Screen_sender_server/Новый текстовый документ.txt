@@ -1,0 +1,3 @@
+magick mogrify -format jpg *.bmp
+
+magick mogrify -resize 520x360 *.bmp
