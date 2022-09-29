@@ -7,10 +7,10 @@
 class Player
 {
 public:
-	float pos_x{}, pos_y{}, angle{};
-	unsigned short FOV{}, max_ray_depth{};
+	float pos_x{}, pos_y{}, angle{}, max_ray_depth{};
+	unsigned short FOV{};
 
-	Player(float pos_x, float pos_y, float angle, unsigned short FOV, unsigned short max_ray_depth);
+	Player(float pos_x, float pos_y, float angle, unsigned short FOV, float max_ray_depth);
 };
 
 
