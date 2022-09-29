@@ -4,7 +4,7 @@ HDC dc{};
 PAINTSTRUCT ps{};
 GraphGDI* paint = nullptr;
 //World gameworld;
-Player player1(250.f, 350.f, 0.f, 100, 300);
+Player player1(250.f, 350.f, 0.f, 100, 300.f);
 MiniMap worldmap;
 
 
