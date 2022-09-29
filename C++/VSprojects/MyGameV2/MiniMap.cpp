@@ -1,6 +1,6 @@
 #include "MiniMap.h"
 
-void MiniMap::ShowMap(HDC dc, float p_pos_x, float p_pos_y, float scale)
+void MiniMap::ShowMap(HDC dc, float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth, float scale)
 {
 	SetDCPenColor(dc, RGB(0, 0, 0));
 	SetDCBrushColor(dc, RGB(255, 150, 100));
@@ -17,24 +17,69 @@ void MiniMap::ShowMap(HDC dc, float p_pos_x, float p_pos_y, float scale)
 		}
 	}
 
-	Rectangle(dc, (short)((p_pos_x - 20.f) * scale), (short)((p_pos_y - 20.f) * scale), (short)((p_pos_x + 20.f) * scale), (short)((p_pos_y + 20.f) * scale));
+	SetDCBrushColor(dc, RGB(100, 255, 255));
+	Rectangle(dc, (short)((p_pos_x - 10.f) * scale), (short)((p_pos_y - 10.f) * scale), (short)((p_pos_x + 10.f) * scale), (short)((p_pos_y + 10.f) * scale));
+
+	SetDCBrushColor(dc, RGB(255, 255, 0));
+	//Rectangle(dc, p_pos_x + max_ray_depth * cos(p_angle * PI / 180) - 5.f, p_pos_y + max_ray_depth * sin(p_angle * PI / 180) - 5.f, p_pos_x + max_ray_depth * cos(p_angle * PI / 180) + 5.f, p_pos_y + max_ray_depth * sin(p_angle * PI / 180) + 5.f);
+
+	float cross_pos_x = p_pos_x + MiniMap::NearestCross(p_pos_x, p_pos_y, p_angle, max_ray_depth) * cos(p_angle * PI / 180);
+
+	float cross_pos_y = p_pos_y + MiniMap::NearestCross(p_pos_x, p_pos_y, p_angle, max_ray_depth) * sin(p_angle * PI / 180);
+
+	Rectangle(dc, (short)((cross_pos_x - 5.f) * scale), (short)((cross_pos_y - 5.f) * scale), (short)((cross_pos_x + 5.f) * scale), (short)((cross_pos_y + 5.f) * scale));
 }
 
-float MiniMap::VerticalCross(float p_pos_x, float p_pos_y, float p_angle, unsigned short max_ray_depth)
+float MiniMap::NearestCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth)
 {
-	float min_ray_depth = 0.f;
+	float min_ray_depth_vertical = MiniMap::VerticalCross(p_pos_x, p_pos_y, p_angle, max_ray_depth);
+
+	float min_ray_depth_horizontal = MiniMap::HorizontalCross(p_pos_x, p_pos_y, p_angle, max_ray_depth);
+
+	if (min_ray_depth_vertical <= min_ray_depth_horizontal) return min_ray_depth_vertical;
+	else if (min_ray_depth_vertical > min_ray_depth_horizontal) return min_ray_depth_horizontal;
+}
+
+float MiniMap::VerticalCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth)
+{
+	float min_ray_depth = max_ray_depth + 1.f;
 
 	for (float x = 0.f; x < (float)screenwidth; x += 100.f)
 	{
-		float ray_depth = ((float)x - p_pos_x) / cos((float)p_angle * PI / 180.f);
-		if (ray_depth < (float)max_ray_depth && ray_depth > 0.f)
+		float ray_depth = ((float)x - p_pos_x) / cos(p_angle * PI / 180.f);
+		if (ray_depth <= (float)max_ray_depth && ray_depth > 0.f)
 		{
-			float y = ray_depth * sin(p_angle * PI / 180.f) + p_pos_y;
+			float y = p_pos_y + ray_depth * sin(p_angle * PI / 180.f);
 
-			if (MiniMap::map[(short)(trunc(y) / 100.f)][(short)(x / 100.f)] == 'w' && (min_ray_depth == 0.f || ray_depth < min_ray_depth))
+			if (MiniMap::map[(short)trunc(y / 100.f)][(short)(x / 100.f)] == 'w' || MiniMap::map[(short)trunc(y / 100.f)][(short)(x / 100.f - 1.f)] == 'w')
+			{
+				if (min_ray_depth == max_ray_depth + 1.f || ray_depth < min_ray_depth) min_ray_depth = ray_depth;
+			}
+		}
+	}
+
+	return min_ray_depth;
+}
+
+float MiniMap::HorizontalCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth)
+{
+	float min_ray_depth = max_ray_depth + 1.f;
+
+	for (float y = 0.f; y < (float)screenheight; y += 100.f)
+	{
+		float ray_depth = ((float)y - p_pos_y) / sin(p_angle * PI / 180.f);
+		if (ray_depth <= (float)max_ray_depth && ray_depth > 0.f)
+		{
+			float x = p_pos_x + ray_depth * cos(p_angle * PI / 180.f);
+
+			if (MiniMap::map[(short)trunc(y / 100.f)][(short)(x / 100.f)] == 'w' || MiniMap::map[(short)trunc(y / 100.f - 1.f)][(short)(x / 100.f)] == 'w')
+			{
+				if (min_ray_depth == max_ray_depth + 1.f || ray_depth < min_ray_depth) min_ray_depth = ray_depth;
+			}
+			/*if (MiniMap::map[(short)trunc(y / 100.f)][(short)(x / 100.f)] == 'w' && (min_ray_depth == max_ray_depth + 1.f || ray_depth < min_ray_depth))
 			{
 				min_ray_depth = ray_depth;
-			}
+			}*/
 		}
 	}
 

@@ -4,7 +4,7 @@ HDC dc{};
 PAINTSTRUCT ps{};
 GraphGDI* paint = nullptr;
 //World gameworld;
-Player player1(550.f, 550.f, 30.f, 100, 300);
+Player player1(250.f, 350.f, 0.f, 100, 300);
 MiniMap worldmap;
 
 
@@ -29,7 +29,7 @@ Window::Window(const char* name, unsigned short pos_x, unsigned short pos_y, HIN
     }
     if (!RegisterClass(&wc)) throw runtime_error("Couldn't register class");
 
-    Window::hwnd = CreateWindow(wc.lpszClassName, name, WS_OVERLAPPEDWINDOW, pos_x, pos_y, screenwidth, screenheight, NULL, NULL, NULL, NULL);
+    Window::hwnd = CreateWindow(wc.lpszClassName, name, WS_POPUP, pos_x, pos_y, screenwidth, screenheight, NULL, NULL, NULL, NULL);
     if (!Window::hwnd) throw runtime_error("Couldn't create window");
 
     ShowWindow(Window::hwnd, SW_SHOWNORMAL);
@@ -56,7 +56,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
         paint->CreateDCBufer(dc);
 
         //gameworld.RayCasting(paint->bufer, player1.pos_x, player1.pos_y, player1.angle, player1.max_ray_depth);
-        worldmap.ShowMap(paint->bufer, player1.pos_x, player1.pos_y, 1);
+        worldmap.ShowMap(paint->bufer, player1.pos_x, player1.pos_y, player1.angle, player1.max_ray_depth, 1.f);
+        player1.angle += 0.25;
 
         paint->ShowDCBufer(dc);
         paint->DeleteDCBufer();

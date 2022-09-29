@@ -10,18 +10,20 @@ public:
 	const char map[screenheight / 100][screenwidth / 100 + 1]
 	{
 		"wwwwww",
-		"......",
-		"...ww.",
-		"....w.",
-		"......",
+		"w....w",
+		"w.ww.w",
+		"...w.w",
+		"w....w",
 		"wwwwww"
 	};
 
-	float VerticalCross(float p_pos_x, float p_pos_y, float p_angle, unsigned short max_ray_depth);
+	float VerticalCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth);
 
-	//float HorizontalCross();
+	float HorizontalCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth);
 
-	void ShowMap(HDC dc, float p_pos_x, float p_pos_y, float scale);
+	float NearestCross(float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth);
+
+	void ShowMap(HDC dc, float p_pos_x, float p_pos_y, float p_angle, float max_ray_depth, float scale);
 };
 
 
