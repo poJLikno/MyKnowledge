@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-const float PI = 3.14159265359;
+const float PI = 3.1415927f;
 
 const unsigned short screenwidth = 600;
 const unsigned short screenheight = 600;

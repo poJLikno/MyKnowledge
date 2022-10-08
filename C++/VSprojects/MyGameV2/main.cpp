@@ -10,8 +10,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prev, _In_ LPSTR
 
         while (GetMessage(&window.msg, NULL, 0, 0))
         {
-            TranslateMessage(&window.msg);
-            DispatchMessage(&window.msg);
+            if (GetForegroundWindow() == window.hwnd)
+            {
+                TranslateMessage(&window.msg);
+                DispatchMessage(&window.msg);
+            }
         }
     }
     catch (runtime_error error)

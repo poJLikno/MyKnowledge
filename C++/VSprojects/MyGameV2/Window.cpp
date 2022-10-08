@@ -4,7 +4,7 @@ HDC dc{};
 PAINTSTRUCT ps{};
 GraphGDI* paint = nullptr;
 //World gameworld;
-Player player1(250.f, 350.f, 0.f, 100, 300.f);
+Player player1(250.f, 350.f, 0.f, 100.f, 300.f);
 MiniMap worldmap;
 
 
@@ -33,6 +33,7 @@ Window::Window(const char* name, unsigned short pos_x, unsigned short pos_y, HIN
     if (!Window::hwnd) throw runtime_error("Couldn't create window");
 
     ShowWindow(Window::hwnd, SW_SHOWNORMAL);
+    ShowCursor(FALSE);
 }
 
 //Message function
@@ -46,6 +47,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
     }
     else if (message == WM_TIMER)
     {
+        player1.CheckKeys();
         InvalidateRect(hwnd, NULL, FALSE);
         return 0;
     }
@@ -55,9 +57,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 
         paint->CreateDCBufer(dc);
 
-        //gameworld.RayCasting(paint->bufer, player1.pos_x, player1.pos_y, player1.angle, player1.max_ray_depth);
-        worldmap.ShowMap(paint->bufer, player1.pos_x, player1.pos_y, player1.angle, player1.max_ray_depth, 1.f);
-        player1.angle += 0.25;
+        worldmap.ShowMap(paint->bufer, player1.pos_x, player1.pos_y, player1.angle, player1.max_ray_depth, player1.FOV, player1.delta_angle, 1.f);
 
         paint->ShowDCBufer(dc);
         paint->DeleteDCBufer();
@@ -68,6 +68,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
     else if (message == WM_KEYDOWN)
     {
         if (wparam == VK_ESCAPE) DestroyWindow(hwnd);
+        return 0;
+    }
+    else if (message == WM_MOUSEMOVE)
+    {
+        player1.CheckMouse();
         return 0;
     }
     else if (message == WM_CLOSE)
