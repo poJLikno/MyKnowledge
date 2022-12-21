@@ -14,9 +14,14 @@ ULONG_PTR gdiplusToken;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prev, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
     WNDCLASS wc;
+    HWND hwnd;
+    MSG msg;
+	
+	//Register window class
     memset(&wc, 0, sizeof(WNDCLASS));
     {
         wc.style = CS_OWNDC;// or CS_VREDRAW | CS_HREDRAW;
@@ -30,17 +35,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prev, _In_ LPSTR
         wc.lpszMenuName = 0;
         wc.lpszClassName = "class";
     }
-
     if (!RegisterClass(&wc))
     {
         MessageBox(NULL, "Can't register class", "Error", MB_OK);
         return 0;
     }
 
-    HWND hwnd;
+	//Create window
     hwnd = CreateWindow(wc.lpszClassName, "MyApplication", WS_OVERLAPPEDWINDOW, 100, 100, 600, 600, NULL, NULL, NULL, NULL);
-
-    if (!hwnd)
+	if (!hwnd)
     {
         MessageBox(NULL, "Can't create window", "Error", MB_OK);
         return 0;
@@ -48,8 +51,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prev, _In_ LPSTR
 
     ShowWindow(hwnd, SW_SHOWNORMAL);
 
-    MSG msg;
-
+	//Program main loop
     while (GetMessage(&msg, NULL, 0, 0))
     {
         TranslateMessage(&msg);
@@ -73,9 +75,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE prev, _In_ LPSTR
     return static_cast<int>(msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    if (message == WM_CREATE)
+    if (uMsg == WM_CREATE)
     {
         //GDI+
         GdiplusStartupInput gdiplusStartupInput;
@@ -83,11 +85,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 
         SetTimer(hwnd, 1, 10, NULL);
     }
-    else if (message == WM_TIMER)
+    else if (uMsg == WM_TIMER)
     {
         InvalidateRect(hwnd, NULL, /*TRUE*/FALSE);
     }
-    else if (message == WM_PAINT)
+    else if (uMsg == WM_PAINT)
     {
         dc = BeginPaint(hwnd, &ps);
         /*Graphics g(dc);
@@ -95,19 +97,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
         g.DrawImage(&image, 0, 0, image.GetWidth(), image.GetHeight());*/
         EndPaint(hwnd, &ps);
     }
-    else if (message == WM_KEYDOWN)
+    else if (uMsg == WM_KEYDOWN)
     {
-        if (wparam == VK_ESCAPE) DestroyWindow(hwnd);
+        if (wParam == VK_ESCAPE) DestroyWindow(hwnd);
     }
-    else if (message == WM_CLOSE)
+    else if (uMsg == WM_CLOSE)
     {
         DestroyWindow(hwnd);
     }
-    else if (message == WM_DESTROY)
+    else if (uMsg == WM_DESTROY)
     {
         KillTimer(hwnd, 1);
         GdiplusShutdown(gdiplusToken);
         PostQuitMessage(0);
     }
-    else return DefWindowProc(hwnd, message, wparam, lparam);
+    else return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
