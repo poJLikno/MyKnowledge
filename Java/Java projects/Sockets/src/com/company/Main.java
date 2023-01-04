@@ -24,13 +24,17 @@ public class Main {
     public static void start_server() {
         System.out.print("Enter the port: ");
         int port = val.nextInt();
-        //val.skip("\n");
+        val.skip("\n");
 
         try {
             Server server = new Server(port);
             System.out.println("Server was created with port " + port);
             System.out.println("Waiting message...");
             System.out.println(server.recieveMessage());
+            server.stop();
+
+            System.out.print("Press Enter to exit...");
+            val.skip("\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +43,6 @@ public class Main {
     public static void start_client() {
         System.out.print("Enter the IP: ");
         String ip = val.nextLine();
-        //val.skip("\n");
         System.out.print("Enter the port: ");
         int port = val.nextInt();
         val.skip("\n");
@@ -49,6 +52,8 @@ public class Main {
             System.out.print("Enter the message: ");
             String message = val.nextLine();
             client.sendMessage(message);
+            client.stop();
+
             System.out.print("Press Enter to exit...");
             val.skip("\n");
         } catch (IOException e) {
