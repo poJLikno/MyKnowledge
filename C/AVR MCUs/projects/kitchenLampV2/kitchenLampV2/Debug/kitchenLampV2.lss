@@ -1,0 +1,340 @@
+
+kitchenLampV2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b6  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000022a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800060  00800060  0000022a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000022a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000025c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000060  00000000  00000000  00000298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000007ec  00000000  00000000  000002f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005e6  00000000  00000000  00000ae4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000003fe  00000000  00000000  000010ca  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000b0  00000000  00000000  000014c8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000377  00000000  00000000  00001578  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000278  00000000  00000000  000018ef  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000040  00000000  00000000  00001b67  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
+   2:	1d c0       	rjmp	.+58     	; 0x3e <__bad_interrupt>
+   4:	1c c0       	rjmp	.+56     	; 0x3e <__bad_interrupt>
+   6:	1b c0       	rjmp	.+54     	; 0x3e <__bad_interrupt>
+   8:	1a c0       	rjmp	.+52     	; 0x3e <__bad_interrupt>
+   a:	19 c0       	rjmp	.+50     	; 0x3e <__bad_interrupt>
+   c:	18 c0       	rjmp	.+48     	; 0x3e <__bad_interrupt>
+   e:	17 c0       	rjmp	.+46     	; 0x3e <__bad_interrupt>
+  10:	16 c0       	rjmp	.+44     	; 0x3e <__bad_interrupt>
+  12:	15 c0       	rjmp	.+42     	; 0x3e <__bad_interrupt>
+  14:	14 c0       	rjmp	.+40     	; 0x3e <__bad_interrupt>
+  16:	13 c0       	rjmp	.+38     	; 0x3e <__bad_interrupt>
+  18:	12 c0       	rjmp	.+36     	; 0x3e <__bad_interrupt>
+  1a:	11 c0       	rjmp	.+34     	; 0x3e <__bad_interrupt>
+  1c:	10 c0       	rjmp	.+32     	; 0x3e <__bad_interrupt>
+
+0000001e <__ctors_end>:
+  1e:	11 24       	eor	r1, r1
+  20:	1f be       	out	0x3f, r1	; 63
+  22:	cf e5       	ldi	r28, 0x5F	; 95
+  24:	d2 e0       	ldi	r29, 0x02	; 2
+  26:	de bf       	out	0x3e, r29	; 62
+  28:	cd bf       	out	0x3d, r28	; 61
+
+0000002a <__do_clear_bss>:
+  2a:	20 e0       	ldi	r18, 0x00	; 0
+  2c:	a0 e6       	ldi	r26, 0x60	; 96
+  2e:	b0 e0       	ldi	r27, 0x00	; 0
+  30:	01 c0       	rjmp	.+2      	; 0x34 <.do_clear_bss_start>
+
+00000032 <.do_clear_bss_loop>:
+  32:	1d 92       	st	X+, r1
+
+00000034 <.do_clear_bss_start>:
+  34:	a1 36       	cpi	r26, 0x61	; 97
+  36:	b2 07       	cpc	r27, r18
+  38:	e1 f7       	brne	.-8      	; 0x32 <.do_clear_bss_loop>
+  3a:	92 d0       	rcall	.+292    	; 0x160 <main>
+  3c:	ba c0       	rjmp	.+372    	; 0x1b2 <_exit>
+
+0000003e <__bad_interrupt>:
+  3e:	e0 cf       	rjmp	.-64     	; 0x0 <__vectors>
+
+00000040 <sendBit0>:
+#include "ledStrip.h"
+
+void sendBit0(void)
+{
+	PORTB |= StripPort;
+  40:	88 b3       	in	r24, 0x18	; 24
+  42:	81 60       	ori	r24, 0x01	; 1
+  44:	88 bb       	out	0x18, r24	; 24
+	...
+		"nop\n\t"
+		"nop\n\t"
+		"nop\n\t"
+		"nop\n\t"
+	);
+	PORTB &= ~StripPort;
+  4e:	88 b3       	in	r24, 0x18	; 24
+  50:	8e 7f       	andi	r24, 0xFE	; 254
+  52:	88 bb       	out	0x18, r24	; 24
+	...
+	asm volatile(
+  68:	08 95       	ret
+
+0000006a <sendBit1>:
+	);
+}
+
+void sendBit1(void)
+{
+	PORTB |= StripPort;
+  6a:	88 b3       	in	r24, 0x18	; 24
+  6c:	81 60       	ori	r24, 0x01	; 1
+  6e:	88 bb       	out	0x18, r24	; 24
+	...
+	asm volatile(
+  80:	00 00       	nop
+	"nop\n\t"
+	"nop\n\t"
+	"nop\n\t"
+	"nop\n\t"
+	);
+	PORTB &= ~StripPort;
+  82:	88 b3       	in	r24, 0x18	; 24
+  84:	8e 7f       	andi	r24, 0xFE	; 254
+  86:	88 bb       	out	0x18, r24	; 24
+	...
+	asm volatile(
+  90:	00 00       	nop
+  92:	08 95       	ret
+
+00000094 <turnOn>:
+	"nop\n\t"
+	);
+}
+
+void turnOn(unsigned short led_count)
+{
+  94:	0f 93       	push	r16
+  96:	1f 93       	push	r17
+  98:	cf 93       	push	r28
+  9a:	df 93       	push	r29
+  9c:	8c 01       	movw	r16, r24
+	uint16_t i = 0;
+  9e:	20 e0       	ldi	r18, 0x00	; 0
+  a0:	30 e0       	ldi	r19, 0x00	; 0
+	while (i++ < (8 * 3 * led_count)) sendBit1();
+  a2:	02 c0       	rjmp	.+4      	; 0xa8 <turnOn+0x14>
+  a4:	e2 df       	rcall	.-60     	; 0x6a <sendBit1>
+  a6:	9e 01       	movw	r18, r28
+  a8:	e9 01       	movw	r28, r18
+  aa:	21 96       	adiw	r28, 0x01	; 1
+  ac:	c8 01       	movw	r24, r16
+  ae:	88 0f       	add	r24, r24
+  b0:	99 1f       	adc	r25, r25
+  b2:	80 0f       	add	r24, r16
+  b4:	91 1f       	adc	r25, r17
+  b6:	88 0f       	add	r24, r24
+  b8:	99 1f       	adc	r25, r25
+  ba:	88 0f       	add	r24, r24
+  bc:	99 1f       	adc	r25, r25
+  be:	88 0f       	add	r24, r24
+  c0:	99 1f       	adc	r25, r25
+  c2:	28 17       	cp	r18, r24
+  c4:	39 07       	cpc	r19, r25
+  c6:	70 f3       	brcs	.-36     	; 0xa4 <turnOn+0x10>
+}
+  c8:	df 91       	pop	r29
+  ca:	cf 91       	pop	r28
+  cc:	1f 91       	pop	r17
+  ce:	0f 91       	pop	r16
+  d0:	08 95       	ret
+
+000000d2 <turnOff>:
+
+void turnOff(unsigned short led_count)
+{
+  d2:	0f 93       	push	r16
+  d4:	1f 93       	push	r17
+  d6:	cf 93       	push	r28
+  d8:	df 93       	push	r29
+  da:	8c 01       	movw	r16, r24
+	uint16_t i = 0;
+  dc:	20 e0       	ldi	r18, 0x00	; 0
+  de:	30 e0       	ldi	r19, 0x00	; 0
+	while (i++ < (8 * 3 * led_count)) sendBit0();
+  e0:	02 c0       	rjmp	.+4      	; 0xe6 <turnOff+0x14>
+  e2:	ae df       	rcall	.-164    	; 0x40 <sendBit0>
+  e4:	9e 01       	movw	r18, r28
+  e6:	e9 01       	movw	r28, r18
+  e8:	21 96       	adiw	r28, 0x01	; 1
+  ea:	c8 01       	movw	r24, r16
+  ec:	88 0f       	add	r24, r24
+  ee:	99 1f       	adc	r25, r25
+  f0:	80 0f       	add	r24, r16
+  f2:	91 1f       	adc	r25, r17
+  f4:	88 0f       	add	r24, r24
+  f6:	99 1f       	adc	r25, r25
+  f8:	88 0f       	add	r24, r24
+  fa:	99 1f       	adc	r25, r25
+  fc:	88 0f       	add	r24, r24
+  fe:	99 1f       	adc	r25, r25
+ 100:	28 17       	cp	r18, r24
+ 102:	39 07       	cpc	r19, r25
+ 104:	70 f3       	brcs	.-36     	; 0xe2 <turnOff+0x10>
+ 106:	df 91       	pop	r29
+ 108:	cf 91       	pop	r28
+ 10a:	1f 91       	pop	r17
+ 10c:	0f 91       	pop	r16
+ 10e:	08 95       	ret
+
+00000110 <onAction>:
+	return 0;
+}
+
+void onAction(void)
+{
+	switch (flagStripOn)
+ 110:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 114:	88 23       	and	r24, r24
+ 116:	19 f0       	breq	.+6      	; 0x11e <onAction+0xe>
+ 118:	81 30       	cpi	r24, 0x01	; 1
+ 11a:	89 f0       	breq	.+34     	; 0x13e <onAction+0x2e>
+ 11c:	1e c0       	rjmp	.+60     	; 0x15a <onAction+0x4a>
+	{
+		case 0:
+			turnOn(StripLength);
+ 11e:	82 e2       	ldi	r24, 0x22	; 34
+ 120:	90 e0       	ldi	r25, 0x00	; 0
+ 122:	b8 df       	rcall	.-144    	; 0x94 <turnOn>
+			flagStripOn = 1;
+ 124:	81 e0       	ldi	r24, 0x01	; 1
+ 126:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 12a:	2f ef       	ldi	r18, 0xFF	; 255
+ 12c:	83 ed       	ldi	r24, 0xD3	; 211
+ 12e:	90 e3       	ldi	r25, 0x30	; 48
+ 130:	21 50       	subi	r18, 0x01	; 1
+ 132:	80 40       	sbci	r24, 0x00	; 0
+ 134:	90 40       	sbci	r25, 0x00	; 0
+ 136:	e1 f7       	brne	.-8      	; 0x130 <onAction+0x20>
+ 138:	00 c0       	rjmp	.+0      	; 0x13a <onAction+0x2a>
+ 13a:	00 00       	nop
+ 13c:	0e c0       	rjmp	.+28     	; 0x15a <onAction+0x4a>
+			_delay_ms(1000);
+			break;
+		
+		case 1:
+			turnOff(StripLength);
+ 13e:	82 e2       	ldi	r24, 0x22	; 34
+ 140:	90 e0       	ldi	r25, 0x00	; 0
+ 142:	c7 df       	rcall	.-114    	; 0xd2 <turnOff>
+			flagStripOn = 0;
+ 144:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 148:	2f ef       	ldi	r18, 0xFF	; 255
+ 14a:	83 ed       	ldi	r24, 0xD3	; 211
+ 14c:	90 e3       	ldi	r25, 0x30	; 48
+ 14e:	21 50       	subi	r18, 0x01	; 1
+ 150:	80 40       	sbci	r24, 0x00	; 0
+ 152:	90 40       	sbci	r25, 0x00	; 0
+ 154:	e1 f7       	brne	.-8      	; 0x14e <onAction+0x3e>
+ 156:	00 c0       	rjmp	.+0      	; 0x158 <onAction+0x48>
+ 158:	00 00       	nop
+			break;
+		
+		default:
+			break;
+	}
+	while (~PINB & SensorPin);
+ 15a:	b2 9b       	sbis	0x16, 2	; 22
+ 15c:	fe cf       	rjmp	.-4      	; 0x15a <onAction+0x4a>
+ 15e:	08 95       	ret
+
+00000160 <main>:
+
+void onAction(void);
+
+int main(void)
+{
+	flagStripOn = 0;
+ 160:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+	
+	DDRB |= (1<<0);
+ 164:	87 b3       	in	r24, 0x17	; 23
+ 166:	81 60       	ori	r24, 0x01	; 1
+ 168:	87 bb       	out	0x17, r24	; 23
+	PORTB &= ~(1 << 0);
+ 16a:	88 b3       	in	r24, 0x18	; 24
+ 16c:	8e 7f       	andi	r24, 0xFE	; 254
+ 16e:	88 bb       	out	0x18, r24	; 24
+ 170:	2f ef       	ldi	r18, 0xFF	; 255
+ 172:	89 e6       	ldi	r24, 0x69	; 105
+ 174:	98 e1       	ldi	r25, 0x18	; 24
+ 176:	21 50       	subi	r18, 0x01	; 1
+ 178:	80 40       	sbci	r24, 0x00	; 0
+ 17a:	90 40       	sbci	r25, 0x00	; 0
+ 17c:	e1 f7       	brne	.-8      	; 0x176 <main+0x16>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <main+0x20>
+ 180:	00 00       	nop
+	
+	_delay_ms(500);
+	turnOff(StripLength);
+ 182:	82 e2       	ldi	r24, 0x22	; 34
+ 184:	90 e0       	ldi	r25, 0x00	; 0
+ 186:	a5 df       	rcall	.-182    	; 0xd2 <turnOff>
+ 188:	2f ef       	ldi	r18, 0xFF	; 255
+ 18a:	89 e6       	ldi	r24, 0x69	; 105
+ 18c:	98 e1       	ldi	r25, 0x18	; 24
+ 18e:	21 50       	subi	r18, 0x01	; 1
+ 190:	80 40       	sbci	r24, 0x00	; 0
+ 192:	90 40       	sbci	r25, 0x00	; 0
+ 194:	e1 f7       	brne	.-8      	; 0x18e <main+0x2e>
+ 196:	00 c0       	rjmp	.+0      	; 0x198 <main+0x38>
+ 198:	00 00       	nop
+	_delay_ms(500);
+    while (1)
+	{
+		uint8_t SensorActive = ~PINB & SensorPin;
+		if (SensorActive)
+ 19a:	b2 9b       	sbis	0x16, 2	; 22
+			onAction();
+ 19c:	b9 df       	rcall	.-142    	; 0x110 <onAction>
+ 19e:	2f ef       	ldi	r18, 0xFF	; 255
+ 1a0:	80 e7       	ldi	r24, 0x70	; 112
+ 1a2:	92 e0       	ldi	r25, 0x02	; 2
+ 1a4:	21 50       	subi	r18, 0x01	; 1
+ 1a6:	80 40       	sbci	r24, 0x00	; 0
+ 1a8:	90 40       	sbci	r25, 0x00	; 0
+ 1aa:	e1 f7       	brne	.-8      	; 0x1a4 <main+0x44>
+ 1ac:	00 c0       	rjmp	.+0      	; 0x1ae <main+0x4e>
+ 1ae:	00 00       	nop
+ 1b0:	f4 cf       	rjmp	.-24     	; 0x19a <main+0x3a>
+
+000001b2 <_exit>:
+ 1b2:	f8 94       	cli
+
+000001b4 <__stop_program>:
+ 1b4:	ff cf       	rjmp	.-2      	; 0x1b4 <__stop_program>

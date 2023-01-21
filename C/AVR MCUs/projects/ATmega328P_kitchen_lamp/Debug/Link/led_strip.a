@@ -1,0 +1,192 @@
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x01
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x0E
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_adc_noise_red=0x02
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powerdown=0x04
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_powersave=0x06
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_standby=0x0C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_ext_standby=0x0E
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=smcr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;void send_bit_0()
+; 0001 0004 {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+; 0001 0005 PORTD |= (1<<2);
+;PCODE: $0000000F VOL: 0
+;PCODE: $00000010 VOL: 0
+; 0001 0006 #asm("nop");
+;PCODE: $00000011 VOL: 0
+; 0001 0007 #asm("nop");
+;PCODE: $00000012 VOL: 0
+; 0001 0008 #asm("nop");
+;PCODE: $00000013 VOL: 0
+; 0001 0009 #asm("nop");
+;PCODE: $00000014 VOL: 0
+; 0001 000A #asm("nop");
+;PCODE: $00000015 VOL: 0
+; 0001 000B #asm("nop");
+;PCODE: $00000016 VOL: 0
+; 0001 000C PORTD &= ~(1<<2);
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+; 0001 000D #asm("nop");
+;PCODE: $00000019 VOL: 0
+; 0001 000E #asm("nop");
+;PCODE: $0000001A VOL: 0
+; 0001 000F #asm("nop");
+;PCODE: $0000001B VOL: 0
+; 0001 0010 #asm("nop");
+;PCODE: $0000001C VOL: 0
+; 0001 0011 #asm("nop");
+;PCODE: $0000001D VOL: 0
+; 0001 0012 #asm("nop");
+;PCODE: $0000001E VOL: 0
+; 0001 0013 #asm("nop");
+;PCODE: $0000001F VOL: 0
+; 0001 0014 #asm("nop");
+;PCODE: $00000020 VOL: 0
+; 0001 0015 #asm("nop");
+;PCODE: $00000021 VOL: 0
+; 0001 0016 #asm("nop");
+;PCODE: $00000022 VOL: 0
+; 0001 0017 #asm("nop");
+;PCODE: $00000023 VOL: 0
+; 0001 0018 #asm("nop");
+;PCODE: $00000024 VOL: 0
+; 0001 0019 }
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;void send_bit_1()
+; 0001 001C {
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+; 0001 001D PORTD |= (1<<2);
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+; 0001 001E #asm("nop");
+;PCODE: $0000002B VOL: 0
+; 0001 001F #asm("nop");
+;PCODE: $0000002C VOL: 0
+; 0001 0020 #asm("nop");
+;PCODE: $0000002D VOL: 0
+; 0001 0021 #asm("nop");
+;PCODE: $0000002E VOL: 0
+; 0001 0022 #asm("nop");
+;PCODE: $0000002F VOL: 0
+; 0001 0023 #asm("nop");
+;PCODE: $00000030 VOL: 0
+; 0001 0024 #asm("nop");
+;PCODE: $00000031 VOL: 0
+; 0001 0025 #asm("nop");
+;PCODE: $00000032 VOL: 0
+; 0001 0026 #asm("nop");
+;PCODE: $00000033 VOL: 0
+; 0001 0027 #asm("nop");
+;PCODE: $00000034 VOL: 0
+; 0001 0028 #asm("nop");
+;PCODE: $00000035 VOL: 0
+; 0001 0029 PORTD &= ~(1<<2);
+;PCODE: $00000036 VOL: 0
+;PCODE: $00000037 VOL: 0
+; 0001 002A #asm("nop");
+;PCODE: $00000038 VOL: 0
+; 0001 002B #asm("nop");
+;PCODE: $00000039 VOL: 0
+; 0001 002C #asm("nop");
+;PCODE: $0000003A VOL: 0
+; 0001 002D #asm("nop");
+;PCODE: $0000003B VOL: 0
+; 0001 002E #asm("nop");
+;PCODE: $0000003C VOL: 0
+; 0001 002F #asm("nop");
+;PCODE: $0000003D VOL: 0
+; 0001 0030 #asm("nop");
+;PCODE: $0000003E VOL: 0
+; 0001 0031 }
+;PCODE: $0000003F VOL: 0
+;PCODE: $00000040 VOL: 0
+;void turn_on(unsigned short led_count)
+; 0001 0034 {
+;PCODE: $00000041 VOL: 0
+;PCODE: $00000042 VOL: 0
+; 0001 0035 unsigned short i;
+; 0001 0036 for (i = 0; i < (8 * 3 * led_count); i++)
+;PCODE: $00000043 VOL: 0
+;PCODE: $00000044 VOL: 0
+;	led_count -> R18,R19
+;	i -> R16,R17
+;PCODE: $00000045 VOL: 0
+;PCODE: $00000046 VOL: 0
+;PCODE: $00000047 VOL: 0
+;PCODE: $00000048 VOL: 0
+;PCODE: $00000049 VOL: 0
+;PCODE: $0000004A VOL: 0
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+;PCODE: $0000004D VOL: 0
+;PCODE: $0000004E VOL: 0
+; 0001 0037 {
+; 0001 0038 send_bit_1();
+;PCODE: $0000004F VOL: 0
+; 0001 0039 }
+;PCODE: $00000050 VOL: 0
+;PCODE: $00000051 VOL: 0
+;PCODE: $00000052 VOL: 0
+;PCODE: $00000053 VOL: 0
+;PCODE: $00000054 VOL: 0
+; 0001 003A }
+;PCODE: $00000055 VOL: 0
+;PCODE: $00000056 VOL: 0
+;PCODE: $00000057 VOL: 0
+;PCODE: $00000058 VOL: 0
+;void turn_off(unsigned short led_count)
+; 0001 003D {
+;PCODE: $00000059 VOL: 0
+;PCODE: $0000005A VOL: 0
+; 0001 003E unsigned short i;
+; 0001 003F for (i = 0; i < (8 * 3 * led_count); i++)
+;PCODE: $0000005B VOL: 0
+;PCODE: $0000005C VOL: 0
+;	led_count -> R18,R19
+;	i -> R16,R17
+;PCODE: $0000005D VOL: 0
+;PCODE: $0000005E VOL: 0
+;PCODE: $0000005F VOL: 0
+;PCODE: $00000060 VOL: 0
+;PCODE: $00000061 VOL: 0
+;PCODE: $00000062 VOL: 0
+;PCODE: $00000063 VOL: 0
+;PCODE: $00000064 VOL: 0
+;PCODE: $00000065 VOL: 0
+;PCODE: $00000066 VOL: 0
+; 0001 0040 {
+; 0001 0041 send_bit_0();
+;PCODE: $00000067 VOL: 0
+; 0001 0042 }
+;PCODE: $00000068 VOL: 0
+;PCODE: $00000069 VOL: 0
+;PCODE: $0000006A VOL: 0
+;PCODE: $0000006B VOL: 0
+;PCODE: $0000006C VOL: 0
+; 0001 0043 }
+;PCODE: $0000006D VOL: 0
+;PCODE: $0000006E VOL: 0
+;PCODE: $0000006F VOL: 0
+;PCODE: $00000070 VOL: 0

@@ -1,0 +1,6 @@
+VERSION:3 SOURCE_TIMESTAMP:5532ACF5
+NODE:I LEVEL:0 LINE:1 "C:\Users\poJLikno\Documents\Atmel Studio\7.0\ATmega328P_shift_register\main.h"
+NODE:V LEVEL:0 LINE:3 "led -> R4"
+NODE:V LEVEL:0 LINE:3 "i -> R3"
+NODE:V LEVEL:0 LINE:3 "del -> R6"
+NODE:F LEVEL:0 LINE:5 "main(void)"

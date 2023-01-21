@@ -1,0 +1,3 @@
+VERSION:3 SOURCE_TIMESTAMP:554D9B24
+NODE:I LEVEL:0 LINE:1 "C:\Users\poJLikno\Documents\Atmel Studio\7.0\ATmega328P_kitchen_lamp\usart.h"
+NODE:F LEVEL:0 LINE:3 "usart_init(void)"

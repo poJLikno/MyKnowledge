@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<?xml-stylesheet type='text/xsl' href='ProjectConversionLog.xslt'?>
+<ConversionLog BrandName="AVR GCC to XC8 Project Conversion Log">
+  <Project name="XC8Project1" id="XC8Project1" status="Success">
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message> Project unloaded Successfully</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: add items to project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added file: main.c</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed adding items to project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: add file level compiler settings</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed adding file level compiler settings</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: Deleting configuration not in imported project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Warning</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Removed Configuration: Release</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Warning</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Removed Configuration: Debug</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed deleting configuration not in imported project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: Create configuration present in imported project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added Configuration: Release_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added Configuration: Debug_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed adding configurations present in imported project</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: project toolchain options mapping for configuration Release_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.hex</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.lss</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.eep</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Warning</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>skipping option: avrgcc.common.outputfiles.srec</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.usersignatures</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.optimization.PackStructureMembers</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.optimization.AllocateBytesNeededForEnum</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.warnings.AllWarnings</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: project toolchain options mapping for configuration Debug_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.hex</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.lss</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.eep</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Warning</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>skipping option: avrgcc.common.outputfiles.srec</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.common.outputfiles.usersignatures</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.optimization.PackStructureMembers</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.optimization.AllocateBytesNeededForEnum</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Added option: avrgcc.compiler.warnings.AllWarnings</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed project toolchain options mapping</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: adding build events for configuration Release_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Start: adding build events for configuration Debug_XC8</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>Completed adding build events</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Info</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message> Project reloaded successfully</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+    <LogEntry>
+      <Type>Success</Type>
+      <DateTime>8/19/2022 1:23:48 AM</DateTime>
+      <Message>XC8Project1 Project Created Successfully</Message>
+      <Exception>
+      </Exception>
+    </LogEntry>
+  </Project>
+</ConversionLog>

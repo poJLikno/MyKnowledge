@@ -1,0 +1,3 @@
+main DSTACK_USAGE:0 DSTACK_LEVEL:0 FILE:"main.c" LINE:5
+set_bits DSTACK_USAGE:2 DSTACK_LEVEL:2 FILE:"shift_register.c" LINE:3
+spi DSTACK_USAGE:2 DSTACK_LEVEL:4 FILE:"C:\cvavreval\lib\spi.lib" LINE:264

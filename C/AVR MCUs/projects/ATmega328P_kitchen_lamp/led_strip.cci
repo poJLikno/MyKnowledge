@@ -1,0 +1,6 @@
+VERSION:3 SOURCE_TIMESTAMP:55579C4B
+NODE:I LEVEL:0 LINE:1 "C:\Users\poJLikno\Documents\Atmel Studio\7.0\ATmega328P_kitchen_lamp\led_strip.h"
+NODE:F LEVEL:0 LINE:3 "send_bit_0(void)"
+NODE:F LEVEL:0 LINE:27 "send_bit_1(void)"
+NODE:F LEVEL:0 LINE:51 "turn_on(unsigned int led_count)"
+NODE:F LEVEL:0 LINE:60 "turn_off(unsigned int led_count)"
