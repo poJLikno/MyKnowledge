@@ -2,6 +2,7 @@
 #define UDP_SOCKETS_H
 
 #include <iostream>
+#include <string>
 #include <ws2tcpip.h>
 #include <windows.h>
 

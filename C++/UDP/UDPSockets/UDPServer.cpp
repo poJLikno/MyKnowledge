@@ -28,7 +28,7 @@ UDPServer::~UDPServer()
 void UDPServer::BindSocket()
 {
 	if (bind(server, (sockaddr *)&serverInfo, sizeof(serverInfo)) == SOCKET_ERROR)
-		throw std::runtime_error("Can't bind socket! " + WSAGetLastError() + '\n');
+		throw std::runtime_error("Can't bind socket! " + std::to_string(WSAGetLastError()) + '\n');
 }
 
 void UDPServer::CloseSocket()
@@ -49,9 +49,7 @@ void UDPServer::SendData(const char *data, size_t size)
 {
 	int sendOk = sendto(server, data, size, 0, (sockaddr *)&clientInfo, sizeof(clientInfo));
 	if (sendOk == SOCKET_ERROR)
-	{
-		std::cout << "That didn't work! " << WSAGetLastError() << '\n';
-	}
+		throw std::runtime_error("That didn't work! " + std::to_string(WSAGetLastError()) + '\n');
 }
 
 void UDPServer::ReceiveData(char *buffer, size_t size)
@@ -59,5 +57,5 @@ void UDPServer::ReceiveData(char *buffer, size_t size)
 	ZeroMemory(&clientInfo, clientLength);
 	int bytesIn = recvfrom(server, buffer, size, 0, (sockaddr *)&clientInfo, &clientLength);
 	if (bytesIn == SOCKET_ERROR)
-		throw std::runtime_error("Error receiving from client " + WSAGetLastError() + '\n');
+		throw std::runtime_error("Error receiving from client " + std::to_string(WSAGetLastError()) + '\n');
 }
