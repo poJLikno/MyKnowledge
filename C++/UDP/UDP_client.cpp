@@ -14,14 +14,14 @@ int main(int argc, const char *argv[])// Client
 		return EXIT_SUCCESS;
 	}
 
+	SOCKET client = socket(AF_INET, SOCK_DGRAM, 0);
+	
 	sockaddr_in serverInfo;
 	{
 		serverInfo.sin_family = AF_INET;
 		serverInfo.sin_port = htons(54000);
 	}
 	inet_pton(AF_INET, "127.0.0.1", &serverInfo.sin_addr); // Convert from string to byte array
-
-	SOCKET client = socket(AF_INET, SOCK_DGRAM, 0);
 
 	std::string message("Aloha"); // Message!
 
