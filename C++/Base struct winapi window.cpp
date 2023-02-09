@@ -8,7 +8,7 @@
 
 using namespace Gdiplus;
 
-HDC dc = nullptr;
+HDC dc;
 PAINTSTRUCT ps;
 ULONG_PTR gdiplusToken;
 
