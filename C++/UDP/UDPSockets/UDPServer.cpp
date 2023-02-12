@@ -37,12 +37,9 @@ void UDPServer::CloseSocket()
 	WSACleanup();
 }
 
-char *UDPServer::GetClientIP()
-{
-	char clientIp[256] = {};
-	inet_ntop(AF_INET, &clientInfo.sin_addr, clientIp, 256);
-
-	return clientIp;
+void UDPServer::GetClientIP(char *buffer, size_t size)
+{	
+	inet_ntop(AF_INET, &clientInfo.sin_addr, buffer, size);
 }
 
 void UDPServer::SendData(const char *data, size_t size)
