@@ -1,25 +1,27 @@
-#ifndef UDP_SOCKETS_H
-#define UDP_SOCKETS_H
+#ifndef TCP_SOCKETS_H
+#define TCP_SOCKETS_H
 
-#include <iostream>
-#include <string>
-#include <ws2tcpip.h>
-#include <windows.h>
+#include "../NetSockets.h"
 
-class UDPServer
+class TCPServer
 {
 private:
 	SOCKET server;
 	sockaddr_in serverInfo;
+	SOCKET client;
 	sockaddr_in clientInfo;
 	int clientLength;
 
 public:
-	UDPServer(uint16_t port);
+	TCPServer(uint16_t port);
 
-	~UDPServer();
+	~TCPServer();
 
 	void BindSocket();
+
+	void ListenPort();
+
+	SOCKET AcceptConnection();
 
 	void CloseSocket();
 
@@ -27,26 +29,27 @@ public:
 
 	void SendData(const char *data, size_t size);
 
-	void ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size);
 };
 
-class UDPClient
+class TCPClient
 {
 private:
 	SOCKET client;
 	sockaddr_in serverInfo;
-	int serverLength;
 
 public:
-	UDPClient(const char *ip, uint16_t port);
+	TCPClient(const char *ip, uint16_t port);
 
-	~UDPClient();
+	~TCPClient();
+
+	void ConnectToServer();
 
 	void CloseSocket();
 
 	void SendData(const char *data, size_t size);
 
-	void ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size);
 };
 
 #endif
