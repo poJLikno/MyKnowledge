@@ -37,9 +37,11 @@ void UDPClient::SendData(const char *data, size_t size)
 		throw std::runtime_error("That didn't work! " + std::to_string(WSAGetLastError()) + '\n');
 }
 
-void UDPClient::ReceiveData(char *buffer, size_t size)
+int UDPClient::ReceiveData(char *buffer, size_t size)
 {
 	int bytesIn = recvfrom(client, buffer, size, 0, (sockaddr *)&serverInfo, &serverLength);
 	if (bytesIn == SOCKET_ERROR)
 		throw std::runtime_error("Error receiving from client " + std::to_string(WSAGetLastError()) + '\n');
+
+	return bytesIn;
 }

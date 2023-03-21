@@ -49,10 +49,12 @@ void UDPServer::SendData(const char *data, size_t size)
 		throw std::runtime_error("That didn't work! " + std::to_string(WSAGetLastError()) + '\n');
 }
 
-void UDPServer::ReceiveData(char *buffer, size_t size)
+int UDPServer::ReceiveData(char *buffer, size_t size)
 {
 	ZeroMemory(&clientInfo, clientLength);
 	int bytesIn = recvfrom(server, buffer, size, 0, (sockaddr *)&clientInfo, &clientLength);
 	if (bytesIn == SOCKET_ERROR)
 		throw std::runtime_error("Error receiving from client " + std::to_string(WSAGetLastError()) + '\n');
+
+	return bytesIn;
 }

@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include <Gdiplus.h>
 
+#pragma comment(lib, "gdiplus.lib")
+
 #ifndef HINST_THISCOMPONENT
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)

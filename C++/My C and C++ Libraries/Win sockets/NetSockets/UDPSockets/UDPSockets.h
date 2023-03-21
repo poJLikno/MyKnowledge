@@ -3,7 +3,17 @@
 
 #include "../NetSockets.h"
 
-class UDPServer
+class UDPSocket
+{
+public:
+	virtual void CloseSocket() = 0;
+
+	virtual void SendData(const char *data, size_t size) = 0;
+
+	virtual int ReceiveData(char *buffer, size_t size) = 0;
+};
+
+class UDPServer : UDPSocket
 {
 private:
 	SOCKET server;
@@ -18,16 +28,16 @@ public:
 
 	void BindSocket();
 
-	void CloseSocket();
+	void CloseSocket() override final;
 
 	void GetClientIP(char *buffer, size_t size);
 
-	void SendData(const char *data, size_t size);
+	void SendData(const char *data, size_t size) override final;
 
-	void ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size) override final;
 };
 
-class UDPClient
+class UDPClient : UDPSocket
 {
 private:
 	SOCKET client;
@@ -39,11 +49,11 @@ public:
 
 	~UDPClient();
 
-	void CloseSocket();
+	void CloseSocket() override final;
 
-	void SendData(const char *data, size_t size);
+	void SendData(const char *data, size_t size) override final;
 
-	void ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size) override final;
 };
 
 #endif

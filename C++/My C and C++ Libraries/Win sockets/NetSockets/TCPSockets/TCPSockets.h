@@ -3,7 +3,17 @@
 
 #include "../NetSockets.h"
 
-class TCPServer
+class TCPSocket
+{
+public:
+	virtual void CloseSocket() = 0;
+
+	virtual void SendData(const char *data, size_t size) = 0;
+
+	virtual int ReceiveData(char *buffer, size_t size) = 0;
+};
+
+class TCPServer : TCPSocket
 {
 private:
 	SOCKET server;
@@ -23,16 +33,16 @@ public:
 
 	SOCKET AcceptConnection();
 
-	void CloseSocket();
+	void CloseSocket() override final;
 
 	void GetClientIP(char *buffer, size_t size);
 
-	void SendData(const char *data, size_t size);
+	void SendData(const char *data, size_t size) override final;
 
-	int ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size) override final;
 };
 
-class TCPClient
+class TCPClient : TCPSocket
 {
 private:
 	SOCKET client;
@@ -45,11 +55,11 @@ public:
 
 	void ConnectToServer();
 
-	void CloseSocket();
+	void CloseSocket() override final;
 
-	void SendData(const char *data, size_t size);
+	void SendData(const char *data, size_t size) override final;
 
-	int ReceiveData(char *buffer, size_t size);
+	int ReceiveData(char *buffer, size_t size) override final;
 };
 
 #endif

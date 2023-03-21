@@ -59,6 +59,8 @@ int main(int argc, const char *argv[])//            SERVER
 			*/
 		}
 	}
+	
+	closesocket(client);
 	closesocket(server);
 	WSACleanup();
 

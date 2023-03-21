@@ -24,6 +24,7 @@ TCPServer::TCPServer(uint16_t port)
 
 TCPServer::~TCPServer()
 {
+	closesocket(client);
 	closesocket(server);
 	WSACleanup();
 }
@@ -50,6 +51,7 @@ SOCKET TCPServer::AcceptConnection()
 
 void TCPServer::CloseSocket()
 {
+	closesocket(client);
 	closesocket(server);
 	WSACleanup();
 }
