@@ -1,7 +1,12 @@
+#include "../NetSockets/NetSockets.h"
 #include "Window.h"
+#include "../ReceiveAndCreateFile.h"
 
 PAINTSTRUCT ps;
 ULONG_PTR gdiplusToken;
+
+extern UDPClient *udpClient;
+extern TCPClient *tcpClient;
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -25,11 +30,16 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
         }
         else if (message == WM_PAINT)
         {
+            // Receive file
+            ReceiveAndCreateFile();
+
+            // Draw image
             ps.hdc = BeginPaint(hWnd, &ps);
-            // Example
-            /*Gdiplus::Graphics g(ps.hdc);
-            Gdiplus::Image image(L"exit.png");
-            g.DrawImage(&image, 0, 0, image.GetWidth(), image.GetHeight());*/
+
+            Gdiplus::Graphics graphics(ps.hdc);
+            Gdiplus::Image image(L"image.jpg");
+            graphics.DrawImage(&image, 0, 0);
+
             EndPaint(hWnd, &ps);
             result = 0;
         }
@@ -45,6 +55,14 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
         }
         else if (message == WM_DESTROY)
         {
+            delete tcpClient;
+            tcpClient = nullptr;
+
+            Sleep(1000);
+
+            delete udpClient;
+            udpClient = nullptr;
+
             KillTimer(hWnd, 1);
             Gdiplus::GdiplusShutdown(gdiplusToken);
             PostQuitMessage(0);

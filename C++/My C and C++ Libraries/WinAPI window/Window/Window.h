@@ -24,6 +24,8 @@ private:
 public:
 	Window(const char *name, int x, int y, int width, int height);
 
+	Window(const char *name, const char *icon, int x, int y, int width, int height);
+
 	void RunMessageLoop();
 
 	void RunMessageLoopAsync();
