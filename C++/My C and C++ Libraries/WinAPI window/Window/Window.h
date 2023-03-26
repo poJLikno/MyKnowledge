@@ -16,7 +16,6 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 class Window
 {
 private:
-	const int iconSize = 64;
 	MSG msg = {};
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
