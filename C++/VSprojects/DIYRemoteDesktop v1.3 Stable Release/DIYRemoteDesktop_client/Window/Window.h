@@ -22,7 +22,7 @@ private:
 
 public:
 	HWND hwnd = {};
-	
+
 	Window(const char *name, int x, int y, int width, int height);
 
 	Window(const char *name, const char *icon, int x, int y, int width, int height);
