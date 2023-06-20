@@ -21,7 +21,7 @@ POINT point;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	const char *version = "AutoClicker v2.2";
+	const char *version = "AutoClicker v2.3";
 
 	try
 	{
@@ -78,6 +78,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 						cps->GetText(cps_str, 5);
 						Sleep(int(1000.f / atof(cps_str)));
 					}
+					Sleep(1);
 				}
 			});
 		clicker_thread.detach();
