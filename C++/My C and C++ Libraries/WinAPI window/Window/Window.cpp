@@ -30,10 +30,10 @@ Window::Window(const char *name, int x, int y, int width, int height)
 Window::Window(const char *name, const char *icon, int x, int y, int width, int height)
 {
     // Get icon width & height
-    HBITMAP hIcon = LoadBitmap(NULL, icon);
+    /*HBITMAP hIcon = LoadBitmap(NULL, icon);
     BITMAP iconInfo = {};
     GetObject(hIcon, sizeof(BITMAP), &iconInfo);
-    DeleteObject(hIcon);
+    DeleteObject(hIcon);*/
     
     // Register window class
     WNDCLASS wc = {};
@@ -43,7 +43,7 @@ Window::Window(const char *name, const char *icon, int x, int y, int width, int 
         wc.cbClsExtra = 0;
         wc.cbWndExtra = sizeof(LONG_PTR);
         wc.hInstance = HINST_THISCOMPONENT;
-        wc.hIcon = (HICON)LoadImage(HINST_THISCOMPONENT, icon, IMAGE_ICON, iconInfo.bmWidth, iconInfo.bmHeight, LR_LOADFROMFILE);
+        wc.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(101/*Look icon definition in resource.h*/));//(HICON)LoadImage(HINST_THISCOMPONENT, icon, IMAGE_ICON, iconInfo.bmWidth, iconInfo.bmHeight, LR_LOADFROMFILE);
         wc.hCursor = LoadCursor(NULL, IDC_ARROW);
         wc.hbrBackground = (HBRUSH)(6);//NULL
         wc.lpszMenuName = NULL;
