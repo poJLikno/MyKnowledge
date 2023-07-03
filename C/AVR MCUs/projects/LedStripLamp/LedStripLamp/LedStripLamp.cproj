@@ -148,12 +148,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AVRPins\AVRPins.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="AVRPins\AVRPins.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="F_CPU.h">
       <SubType>compile</SubType>
     </Compile>
@@ -163,13 +157,22 @@
     <Compile Include="LedStrip\LedStrip.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="LedStrip\LedStripFuncs.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="millis\millis.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="millis\millis.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AVRPins" />
     <Folder Include="LedStrip" />
+    <Folder Include="millis" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
