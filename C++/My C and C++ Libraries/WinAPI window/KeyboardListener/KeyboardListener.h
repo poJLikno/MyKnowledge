@@ -2,7 +2,7 @@
 #define KB_LISTENER_H
 
 #include <iostream>
-#include <Windows.h>
+#include <windows.h>
 
 class KeyboardListener
 {

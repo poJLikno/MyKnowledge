@@ -197,11 +197,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
                 int nBitsOffset = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
                 LONG lImageSize = w * h * 3 ;
                 LONG lFileSize = nBitsOffset + lImageSize;
-                BITMAPFILEHEADER bmfh;
-                bmfh.bfType = 'B'+('M'<<8);
-                bmfh.bfOffBits = nBitsOffset;
-                bmfh.bfSize = lFileSize;
-                bmfh.bfReserved1 = bmfh.bfReserved2 = 0;
+                BITMAPFILEHEADER bmfh = { 0 };
+                {
+					bmfh.bfType = 'B'+('M'<<8);
+					bmfh.bfOffBits = nBitsOffset;
+					bmfh.bfSize = lFileSize;
+					bmfh.bfReserved1 = bmfh.bfReserved2 = 0;
+				}
 
                 filew.write((char*) &bmfh, sizeof(BITMAPFILEHEADER));
                 filew.write((char*) &bmi, sizeof(BITMAPINFOHEADER));

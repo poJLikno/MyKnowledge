@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 
+#define PORTx PORTB
+#define M_DAT 0b00000010
+
 typedef struct
 {
 	uint8_t r;

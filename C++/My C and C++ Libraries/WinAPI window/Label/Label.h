@@ -2,7 +2,7 @@
 #define LABEL_H
 
 #include <iostream>
-#include <Windows.h>
+#include <windows.h>
 
 class Label
 {

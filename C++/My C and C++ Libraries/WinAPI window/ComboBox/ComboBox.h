@@ -2,7 +2,7 @@
 #define BOMBO_BOX_H
 
 #include <iostream>
-#include <Windows.h>
+#include <windows.h>
 
 class ComboBox
 {

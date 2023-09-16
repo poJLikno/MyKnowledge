@@ -4,7 +4,7 @@ Button::Button(HWND hWnd, const char *text, int x, int y, int width, int height,
 {
 	this->hWnd = CreateWindow("button", text, style, x, y, width, height, hWnd, NULL, NULL, NULL);
 	if (!this->hWnd)
-		throw std::runtime_error("Can't create button");
+		throw std::runtime_error("Can't create button -> Error code: " + std::to_string(GetLastError()));
 }
 
 void Button::SetText(const char *text)

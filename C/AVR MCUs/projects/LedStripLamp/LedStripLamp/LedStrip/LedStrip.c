@@ -7,7 +7,7 @@
 
 void setLedStripColor(RGB color, uint8_t led_count)
 {
-	uint8_t ports = PORTB;
+	uint8_t ports = PORTx;
 	RGB save_color = { 0 };
 	
 	uint8_t l = 0, i = 0;
@@ -19,18 +19,18 @@ void setLedStripColor(RGB color, uint8_t led_count)
 		{
 			if (save_color.g >= i)
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.7375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.3875);
 				
 				save_color.g -= i;
 			}
 			else
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.3375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.7875);
 			}
 		}
@@ -39,18 +39,18 @@ void setLedStripColor(RGB color, uint8_t led_count)
 		{
 			if (save_color.r >= i)
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.7375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.3875);
 				
 				save_color.r -= i;
 			}
 			else
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.3375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.7875);
 			}
 		}
@@ -59,36 +59,36 @@ void setLedStripColor(RGB color, uint8_t led_count)
 		{
 			if (save_color.b >= i)
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.7375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.3875);
 				
 				save_color.b -= i;
 			}
 			else
 			{
-				PORTB = 2;
+				PORTx = M_DAT;
 				_delay_us(0.3375);
-				PORTB = 0;
+				PORTx = 0;
 				_delay_us(0.7875);
 			}
 		}
 	}
-	PORTB = ports;
+	PORTx = ports;
 }
 
 void ledStripOFF(uint8_t led_count)
 {
-	uint8_t ports = PORTB;
+	uint8_t ports = PORTx;
 	
 	uint16_t i = 0;
 	for (i = 0; i < led_count * 24; i++)
 	{
-		PORTB = 2;
+		PORTx = M_DAT;
 		_delay_us(0.3375);
-		PORTB = 0;
+		PORTx = 0;
 		_delay_us(0.7875);
 	}
-	PORTB = ports;
+	PORTx = ports;
 }

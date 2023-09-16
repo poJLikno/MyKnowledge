@@ -2,7 +2,8 @@
 #define BUTTON_H
 
 #include <iostream>
-#include <Windows.h>
+#include <string>
+#include <windows.h>
 
 class Button
 {

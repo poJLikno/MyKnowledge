@@ -7,7 +7,7 @@
 #include "LedStrip/LedStrip.h"
 
 // Led strip settings
-const uint8_t led_count = 34;
+const uint8_t led_count = 60;// 1 meter
 
 const RGB white_color = { 255, 255, 255 };// White
 
@@ -50,8 +50,8 @@ int main(void)
 	DDRB &= ~(1<<0);
 	PORTB &= ~(1<<0);
 		// Led strip          PB1 OUTPUT
-	DDRB |= (1<<1);
-	PORTB &= ~(1<<1);
+	DDRB |= M_DAT;
+	PORTB &= ~M_DAT;
 		// Button             PB2 INPUT PULL-UP
 	DDRB &= ~(1<<2);
 	PORTB |= (1<<2);

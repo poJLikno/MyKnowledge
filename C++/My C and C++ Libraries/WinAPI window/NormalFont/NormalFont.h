@@ -1,7 +1,7 @@
 #ifndef NORMAL_FONT_H
 #define NORMAL_FONT_H
 
-#include <Windows.h>
+#include <windows.h>
 
 class NormalFont
 {
