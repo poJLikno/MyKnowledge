@@ -1,5 +1,20 @@
 system("pause"); - Приостанавливает консоль.
 setlocale(LC_ALL, "Russian"); - Русский текст в консоли.
+------------------------------------------------------------
+/*//chcp == 866, Windows 10 RUS, utf-8-bom
+char b[128] = { 0 };
+WideCharToMultiByte(CP_ACP, WC_COMPOSITECHECK, L"Русский", 7, b, 128, NULL, NULL);// Work
+//WideCharToMultiByte(CP_ACP, WC_NO_BEST_FIT_CHARS, L"Русский", 7, b, 128, NULL, NULL);// Work
+
+wchar_t d[256] = { 0 };
+MultiByteToWideChar(CP_ACP, NULL, "Русский", 7, d, 256);
+
+_wsetlocale(LC_ALL, L"");
+std::wcout << d << L"\r\n";//L"Русский Rus W\r\n";
+
+setlocale(LC_ALL, "");
+std::cout << "Русский Rus A\r\n";*/
+-------------------------------------------------------------------
 
 покраска текста
 {
