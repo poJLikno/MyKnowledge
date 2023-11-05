@@ -1,5 +1,5 @@
-system("pause"); - Приостанавливает консоль.
-setlocale(LC_ALL, "Russian"); - Русский текст в консоли.
+| system("pause"); - Приостанавливает консоль.             |
+| setlocale(LC_ALL, "Russian"); - Русский текст в консоли. | -> OLD
 ------------------------------------------------------------
 /*//chcp == 866, Windows 10 RUS, utf-8-bom
 char b[128] = { 0 };
@@ -15,6 +15,30 @@ std::wcout << d << L"\r\n";//L"Русский Rus W\r\n";
 setlocale(LC_ALL, "");
 std::cout << "Русский Rus A\r\n";*/
 -------------------------------------------------------------------
+
+// ----- Windows 10 RUS, utf-8-bom
+/*
+_wsetlocale(LC_ALL, L"");
+SetConsoleCP(1251);
+SetConsoleOutputCP(1251);
+
+std::wstring str;
+std::wcout << std::wstring(L"лохня!\r\n");
+std::getline(std::wcin, str);
+std::wcout << str;*/
+
+//----*------*--------*--------
+
+/*
+SetConsoleCP(1251);
+SetConsoleOutputCP(1251);
+
+std::string str;
+std::cout << std::string("лохня!\r\n");
+std::getline(std::cin, str);
+std::cout << str;*/
+
+------------------------------------------------------
 
 покраска текста
 {
