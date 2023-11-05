@@ -30,8 +30,8 @@ std::wcout << str;*/
 //----*------*--------*--------
 
 /*
-SetConsoleCP(1251);
-SetConsoleOutputCP(1251);
+SetConsoleCP(65001);
+SetConsoleOutputCP(65001);
 
 std::string str;
 std::cout << std::string("лохня!\r\n");
