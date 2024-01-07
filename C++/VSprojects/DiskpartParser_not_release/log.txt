@@ -1,0 +1,6 @@
+  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+  Volume 0     C                NTFS   Partition    947 GB  Healthy    Boot    
+  Volume 1     D   Drivers      NTFS   Partition   5120 MB  Healthy            
+  Volume 2                      FAT32  Partition    100 MB  Healthy    System  
+  Volume 3                      NTFS   Partition    978 MB  Healthy    Hidden  
+  Volume 4     E                FAT32  Removable     29 GB  Healthy            
