@@ -9,6 +9,7 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #include "Edit/Edit.h"
 #include "Button/Button.h"
 #include <thread>
+#include <chrono>
 
 ComboBox *mouse_buttons;
 Label *cps_label;
@@ -21,7 +22,7 @@ POINT point;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	const char *version = "AutoClicker v2.3";
+	const char *version = "AutoClicker v2.4";
 
 	try
 	{
@@ -54,31 +55,34 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		cps->SetText("20");
 
+		std::chrono::time_point millis = std::chrono::high_resolution_clock::now();
+		char cps_str[5] = {};
+
 		// Clicker thread
 		std::thread clicker_thread([&]
 			{
 				while (true)
 				{
-					char cps_str[5] = {};
-					if (flag && !mouse_buttons->GetItemId())
+					memset(cps_str, 0, sizeof(cps_str));
+					cps->GetText(cps_str, sizeof(cps_str));
+					if (std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - millis).count() >= (long long)(pow(10, 9) / atof(cps_str)))
 					{
-						GetCursorPos(&point);
-						mouse_event(MOUSEEVENTF_LEFTDOWN, point.x, point.y, 0, 0);
-						mouse_event(MOUSEEVENTF_LEFTUP, point.x, point.y, 0, 0);
-
-						cps->GetText(cps_str, 5);
-						Sleep(int(1000.f / atof(cps_str)));
+						millis = std::chrono::high_resolution_clock::now();
+						if (flag && !mouse_buttons->GetItemId())
+						{
+							GetCursorPos(&point);
+							mouse_event(MOUSEEVENTF_LEFTDOWN, point.x, point.y, 0, 0);
+							mouse_event(MOUSEEVENTF_LEFTUP, point.x, point.y, 0, 0);
+						}
+						else if (flag && mouse_buttons->GetItemId())
+						{
+							GetCursorPos(&point);
+							mouse_event(MOUSEEVENTF_RIGHTDOWN, point.x, point.y, 0, 0);
+							mouse_event(MOUSEEVENTF_RIGHTUP, point.x, point.y, 0, 0);
+						}
 					}
-					else if (flag && mouse_buttons->GetItemId())
-					{
-						GetCursorPos(&point);
-						mouse_event(MOUSEEVENTF_RIGHTDOWN, point.x, point.y, 0, 0);
-						mouse_event(MOUSEEVENTF_RIGHTUP, point.x, point.y, 0, 0);
 
-						cps->GetText(cps_str, 5);
-						Sleep(int(1000.f / atof(cps_str)));
-					}
-					Sleep(1);
+					std::this_thread::sleep_for(std::chrono::nanoseconds(1));
 				}
 			});
 		clicker_thread.detach();
