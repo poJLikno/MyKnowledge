@@ -1,6 +1,9 @@
 #include <windows.h>
 #include <gdiplus.h>
 
+//#pragma comment(linker, "/subsystem:WINDOWS")
+//#pragma comment(linker, "/entry:mainCRTStartup")
+
 //#pragma comment(lib, "gdi32.lib")
 #pragma comment(lib, "gdiplus.lib")
 
