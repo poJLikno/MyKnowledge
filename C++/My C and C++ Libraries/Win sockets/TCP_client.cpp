@@ -23,7 +23,7 @@ int main()//            CLIENT
 
 	sockaddr_in serverInfo = {};
 	{
-		serverInfo.sin_addr.S_un.S_addr = ADDR_ANY;
+		serverInfo.sin_addr.S_un.S_addr = ADDR_ANY;// should be 0;
 		serverInfo.sin_family = AF_INET;
 		serverInfo.sin_port = htons(6060);
 	}
