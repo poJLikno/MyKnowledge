@@ -25,7 +25,7 @@ public:
 	}
 };
 
-int main(int argc, const char *argv) {
+int main(int argc, const char **argv) {
 	SetConsoleCP(CP_UTF8);
 	SetConsoleOutputCP(CP_UTF8);
 

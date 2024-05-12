@@ -27,7 +27,7 @@ void get_console_utf8(char *buffer, size_t size) {
 	}
 }
 
-int main(int argc, const char *argv) {// UTF-8
+int main(int argc, const char **argv) {// UTF-8
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
 
