@@ -18,7 +18,7 @@ protected:
 	WndPairValue _size = { 0, 0};
 	bool _is_visible = true;
 
-	void *_some_data = nullptr;
+	WndBase *_parent_wnd = nullptr;
 
 	WndBase(const WndPairValue &pos, const WndPairValue &size)
 		: _pos(pos), _size(size) {};
@@ -26,24 +26,21 @@ protected:
 public:
 	virtual ~WndBase();
 
-	virtual void **SomeDataPtr() final;
-
-	//virtual WndPairValue &get_pos_ref() final;
-	//virtual WndPairValue &get_size_ref() final;
-
 	virtual void ShowWnd(const bool &flag) final;
 	virtual LRESULT SendMsg(const UINT &msg, const WPARAM &wparam, const LPARAM &lparam) final;
 
 	virtual HWND GetHwnd() final;
 
-	virtual void GetWndText(wchar_t *buffer, const size_t &count) final;
-	virtual void SetWndText(const wchar_t *label) final;
+	virtual void GetWndText(char *buffer, const int &count) final;
+	virtual void SetWndText(const char *label) final;
 
+	/* Problem section */
 	virtual LONG_PTR GetWndStyle() final;
 	virtual void SetWndStyle(const LONG_PTR &params) final;
 
-	virtual HWND GetWndParent() final;
-	virtual void SetWndParent(const HWND &hwnd);// Non final cause can be problems
+	virtual WndBase *GetWndParent() final;
+	virtual void SetWndParent(WndBase *wnd);// Non final cause can be problems
+	/* --------------- */
 
 	virtual WndPairValue GetWndPos() final;
 	virtual void SetWndPos(const WndPairValue &pos) final;

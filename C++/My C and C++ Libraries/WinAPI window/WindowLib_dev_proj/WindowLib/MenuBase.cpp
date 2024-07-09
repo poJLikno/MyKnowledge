@@ -27,5 +27,5 @@ void MenuBase::AttachPopupMenu(MenuBase *popup_menu) {
 }
 
 void MenuBase::AppendSeparator() {
-	AppendMenu(_hmenu, MF_SEPARATOR, NULL, NULL);
+	AppendMenuW(_hmenu, MF_SEPARATOR, NULL, NULL);
 }

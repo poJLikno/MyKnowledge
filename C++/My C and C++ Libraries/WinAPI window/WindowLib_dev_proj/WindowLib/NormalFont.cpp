@@ -2,14 +2,14 @@
 
 NormalFont::NormalFont() {
     // Initialize NONCLIENTMETRICS structure
-    NONCLIENTMETRICS ncm = {};
+    NONCLIENTMETRICSW ncm = {};
     ncm.cbSize = sizeof(ncm);
 
     // Obtain non-client metrics
-    SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
+    SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, sizeof(ncm), &ncm, 0);
 
     // Create the new font
-    _normal_font = CreateFontIndirect(&ncm.lfMessageFont);
+    _normal_font = CreateFontIndirectW(&ncm.lfMessageFont);
 }
 
 NormalFont::~NormalFont() {
@@ -18,7 +18,7 @@ NormalFont::~NormalFont() {
 
 void NormalFont::SetFont(const HWND &hwnd) {
     // Set the new font
-    SendMessage(hwnd, WM_SETFONT, (WPARAM)_normal_font, NULL);
+    SendMessageW(hwnd, WM_SETFONT, (WPARAM)_normal_font, NULL);
 }
 
 void NormalFont::SetFont(WndBase *wnd) {

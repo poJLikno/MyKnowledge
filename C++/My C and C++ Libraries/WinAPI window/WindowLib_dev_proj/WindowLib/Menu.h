@@ -18,15 +18,22 @@ public:
 
 class PopupMenu : public MenuBase {
 private:
-	wchar_t *_text = nullptr;
+	const char *_text;
 
 public:
-	PopupMenu(const wchar_t *text) : _text((wchar_t *)text) {
+	PopupMenu(const char *text) : _text(text) {
 		_hmenu = CreatePopupMenu();
 	}
 
 	virtual void SetHParent(void *hparent) override {
-		AppendMenu((HMENU)hparent, MF_POPUP, (UINT_PTR)_hmenu, _text);
+		int text_size = (int)strlen(_text) + 1;
+		wchar_t *w_text = new wchar_t[text_size] { 0 };
+		MultiByteToWideChar(CP_UTF8, 0, _text, text_size, w_text, text_size);
+
+		AppendMenuW((HMENU)hparent, MF_POPUP, (UINT_PTR)_hmenu, w_text);
+
+		delete[] w_text;
+		w_text = nullptr;
 	}
 };
 

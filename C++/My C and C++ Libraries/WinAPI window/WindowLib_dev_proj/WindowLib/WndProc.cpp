@@ -6,6 +6,14 @@ WndList<Window> Window::_wnd_list;
 WndList<WndPairValue> Window::_wnd_pos_list;
 WndList<WndPairValue> Window::_wnd_size_list;
 
+template<class T>
+static void ParentResizeCallbacksCaller(T &ctrls_list, ParentResizeCallbackParams *params);
+
+template<class T>
+static void MainCallbacksCaller(T &ctrls_list, LPARAM &lParam, bool &ctrl_was_found_flag);
+
+static bool MenuMainCallbacksCaller(MenuBase *menu, WPARAM &wParam, bool &ctrl_was_found_flag);
+
 LRESULT Window::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	LRESULT result = 0;
 
@@ -22,7 +30,7 @@ LRESULT Window::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				break;
 			}
 		}
-		if (!Wnd) return DefWindowProc(hwnd, uMsg, wParam, lParam);
+		if (!Wnd) return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 
 		if (uMsg == WM_CREATE) {
 			result = 1;
@@ -48,83 +56,36 @@ LRESULT Window::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				result = 0;
 			}
 			else if (uMsg == WM_SIZE) {
-				WndSizeParams params(*Wnd, *WndSize);
+				ParentResizeCallbackParams params = { nullptr, *WndSize };
 				WndSize->first = LOWORD(lParam);
 				WndSize->second = HIWORD(lParam);
 
-				// On size changing callbacks referense
-				auto _SizeChangeCallbacks = [&params](auto &ctrls_list)->void {
-						for (int i = 0; i < ctrls_list.GetCount(); ++i) {
-							auto *ctrl = ctrls_list[i];
-
-							params._data = ctrl->SomeDataPtr();
-							*ctrl->SomeDataPtr() = &params;
-							ctrl->RunCallback(0);
-							*ctrl->SomeDataPtr() = *params._data;
-							params._data = nullptr;
-						}
-					};
-
-				// Run controls callbacks
-				_SizeChangeCallbacks(Wnd->GetButtonsList());
-				_SizeChangeCallbacks(Wnd->GetComboBoxesList());
-				_SizeChangeCallbacks(Wnd->GetEditsList());
-				_SizeChangeCallbacks(Wnd->GetLabelsList());
+				// Run parent resize controls callbacks
+				ParentResizeCallbacksCaller(Wnd->GetButtonsList(), &params);
+				ParentResizeCallbacksCaller(Wnd->GetComboBoxesList(), &params);
+				ParentResizeCallbacksCaller(Wnd->GetEditsList(), &params);
+				ParentResizeCallbacksCaller(Wnd->GetLabelsList(), &params);
 
 				UpdateWindow(hwnd);
 
 				result = 0;
 			}
 			else if (uMsg == WM_COMMAND) {
-				bool ctrl_was_found_flag = false;
+				bool ctrl_was_found_flag = false;				
 
-				// Main controls callbacks reference
-				auto _MainControlsCallbacks = [&ctrl_was_found_flag, &lParam](auto &ctrls_list)->void {
-					if (ctrl_was_found_flag) return;
-					for (int i = 0; i < ctrls_list.GetCount(); ++i) {
-						auto *ctrl = ctrls_list[i];
-						if (lParam == (LPARAM)ctrl->GetHwnd()) {
-							ctrl->RunCallback(1);
-							ctrl_was_found_flag = true;
-							break;
-						}
-					}
-					};
+				// Run main controls callbacks
+				MainCallbacksCaller(Wnd->GetButtonsList(), lParam, ctrl_was_found_flag);
 
-				std::function<bool(MenuBase &)> _MenuPointsCallbacks = [&_MenuPointsCallbacks, &wParam](MenuBase &menu)->bool {
-					for (int i = 0; i < menu.GetMenuPointsList().GetCount(); ++i) {
-						MenuPoint *menu_point = menu.GetMenuPointsList()[i];
-						if (LOWORD(wParam) == menu_point->GetId()) {
-							menu_point->RunCallback(0);
-							return true;
-						}
-					}
-					for (int i = 0; i < menu.GetPopupMenusList().GetCount(); ++i) {
-						MenuBase *popup_menu = menu.GetPopupMenusList()[i];
-						if (popup_menu)
-							if (_MenuPointsCallbacks(*popup_menu)) break;
-					}
-					return false;
-					};
+				if (HIWORD(wParam) == CBN_SELCHANGE)
+					MainCallbacksCaller(Wnd->GetComboBoxesList(), lParam, ctrl_was_found_flag);
+				else if (HIWORD(wParam) == EN_UPDATE)
+					MainCallbacksCaller(Wnd->GetEditsList(), lParam, ctrl_was_found_flag);
+				/*else if (HIWORD(wParam) == EN_CHANGE) { // Also edit message
+					std::wcout << L"EN_CHANGE\r\n";
+				}*/
 
-				// Run controls callbacks
-				{
-					_MainControlsCallbacks(Wnd->GetButtonsList());
-
-					if (HIWORD(wParam) == CBN_SELCHANGE)
-						_MainControlsCallbacks(Wnd->GetComboBoxesList());
-					else if (HIWORD(wParam) == EN_UPDATE)
-						_MainControlsCallbacks(Wnd->GetEditsList());
-					/*else if (HIWORD(wParam) == EN_CHANGE) { // Also edit message
-						std::wcout << L"EN_CHANGE\r\n";
-					}*/
-				}
-
-				// Run menu points callbacks
-				if (Wnd->_menu)
-				{
-					_MenuPointsCallbacks(*Wnd->_menu);
-				}
+				// Run menu points main callbacks
+				MenuMainCallbacksCaller(Wnd->_menu, wParam, ctrl_was_found_flag);
 
 				result = 0;
 			}
@@ -136,14 +97,61 @@ LRESULT Window::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				PostQuitMessage(0);
 				result = 1;
 			}
-			else result = DefWindowProc(hwnd, uMsg, wParam, lParam);
+			else result = DefWindowProcW(hwnd, uMsg, wParam, lParam);
 		}
 	}
-	catch (std::wstring &e) {
-		MessageBox(NULL, e.c_str(), L"Error", MB_OK);
+	catch (std::string &e) {
+		int str_size = (int)e.length() + 1;
+		wchar_t *w_error = new wchar_t[str_size] { 0 };
+		MultiByteToWideChar(CP_UTF8, 0, e.c_str(), str_size, w_error, str_size);
+
+		MessageBoxW(NULL, w_error, L"Error", MB_OK);
 		DestroyWindow(hwnd);
 		result = 0;
+
+		delete[] w_error;
+		w_error = nullptr;
 	}
 
 	return result;
+}
+
+template<class T>
+static void ParentResizeCallbacksCaller(T &ctrls_list, ParentResizeCallbackParams *params) {
+	for (int i = 0; i < ctrls_list.GetCount(); ++i) {
+		auto *ctrl = ctrls_list[i];
+		params->wnd = ctrl;
+		ctrl->operator()("ParentResizeCallback", params);
+	}
+}
+
+template<class T>
+static void MainCallbacksCaller(T &ctrls_list, LPARAM &lParam, bool &ctrl_was_found_flag) {
+	if (ctrl_was_found_flag) return;
+	for (int i = 0; i < ctrls_list.GetCount(); ++i) {
+		auto *ctrl = ctrls_list[i];
+		if (lParam == (LPARAM)ctrl->GetHwnd()) {
+			ctrl->operator()("MainCallback", ctrl);
+			ctrl_was_found_flag = true;
+			break;
+		}
+	}
+}
+
+static bool MenuMainCallbacksCaller(MenuBase *menu, WPARAM &wParam, bool &ctrl_was_found_flag) {
+	if (ctrl_was_found_flag || menu == nullptr) return false;
+	for (int i = 0; i < menu->GetMenuPointsList().GetCount(); ++i) {
+		MenuPoint *menu_point = menu->GetMenuPointsList()[i];
+		if (LOWORD(wParam) == menu_point->GetId()) {
+			menu_point->operator()("MainCallback", menu_point);
+			ctrl_was_found_flag = true;
+			return true;
+		}
+	}
+	for (int i = 0; i < menu->GetPopupMenusList().GetCount(); ++i) {
+		MenuBase *popup_menu = menu->GetPopupMenusList()[i];
+		if (popup_menu)
+			if (MenuMainCallbacksCaller(popup_menu, wParam, ctrl_was_found_flag)) break;
+	}
+	return false;
 }
