@@ -6,15 +6,15 @@
 class NormalFont
 {
 private:
-	HFONT _normal_font = {};
+    HFONT _normal_font = {};
 
 public:
-	NormalFont();
-	~NormalFont();
+    NormalFont();
+    ~NormalFont();
 
-	void SetFont(const HWND &hwnd);
+    void SetFont(const HWND &hwnd);
 
-	void SetFont(WndBase *wnd);
+    void SetFont(WndBase *wnd);
 };
 
 #endif

@@ -28,54 +28,55 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 
 class Window : public WndBase, public CallbackManager {
 private:
-	// Window variables
-	wchar_t *_w_class_name = nullptr;
-	MSG _msg = { 0 };
-	HFONT _normal_font = { 0 };
-	bool _ctrls_dlg_msg_flag = false;
+    // Window variables
+    wchar_t *_w_class_name = nullptr;
+    MSG _msg = { 0 };
+    HFONT _normal_font = { 0 };
+    bool _ctrls_dlg_msg_flag = false;
 
-	// All exist windows
-	static WndList<Window> _wnd_list;
-	// All windows pos/size variables
-	static WndList<WndPairValue> _wnd_pos_list;
-	static WndList<WndPairValue> _wnd_size_list;
+    // All exist windows
+    static WndList<Window> _wnd_list;
+    // All windows pos/size variables
+    static WndList<WndPairValue> _wnd_pos_list;
+    static WndList<WndPairValue> _wnd_size_list;
 
-	// Window controls lists
-	WndList<Button> _btns_list;
-	WndList<ComboBox> _cmb_bxs_list;
-	WndList<Edit> _edits_list;
-	WndList<Label> _lbls_list;
-	Menu *_menu = nullptr;
+    // Window controls lists
+    WndList<Button> _btns_list;
+    WndList<ComboBox> _cmb_bxs_list;
+    WndList<Edit> _edits_list;
+    WndList<Label> _lbls_list;
+    Menu *_menu = nullptr;
 
-	// Main window procedure
-	static LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    // Main window procedure
+    static LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 public:
-	Window(
-		const char *name,
-		WndPairValue pos = { CW_USEDEFAULT, CW_USEDEFAULT },
-		WndPairValue size = { CW_USEDEFAULT, CW_USEDEFAULT },
-		int icon_id = -1);
-	~Window();
+    Window(
+        const char *name,
+        WndPairValue pos = { CW_USEDEFAULT, CW_USEDEFAULT },
+        WndPairValue size = { CW_USEDEFAULT, CW_USEDEFAULT },
+        int icon_id = -1,
+        unsigned long wnd_style = WS_OVERLAPPEDWINDOW);
+    ~Window();
 
-	void AttachChildControl(WndBase *wnd);
-	void AttachMenu(Menu *menu);
+    void AttachChildControl(WndBase *wnd);
+    void AttachMenu(Menu *menu);
 
-	WndList<Button> &GetButtonsList();
-	WndList<ComboBox> &GetComboBoxesList();
-	WndList<Edit> &GetEditsList();
-	WndList<Label> &GetLabelsList();
-	Menu &GetMenu();
+    WndList<Button> &GetButtonsList();
+    WndList<ComboBox> &GetComboBoxesList();
+    WndList<Edit> &GetEditsList();
+    WndList<Label> &GetLabelsList();
+    Menu &GetMenu();
 
-	void EnableControlsDialogMessages(const bool &flag);
+    void EnableControlsDialogMessages(const bool &flag);
 
-	int Run();
+    int Run();
 };
 
 class ParentResizeCallbackParams {
 public:
-	WndBase *wnd;
-	WndPairValue old_size;
+    WndBase *wnd;
+    WndPairValue old_size;
 };
 
 //class WndSizeParams {

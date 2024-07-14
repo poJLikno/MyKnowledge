@@ -1,31 +1,31 @@
 #include "MenuBase.h"
 
 MenuBase::~MenuBase() {
-	DestroyMenu(_hmenu);
+    DestroyMenu(_hmenu);
 }
 
 HMENU MenuBase::GetHmenu() {
-	return _hmenu;
+    return _hmenu;
 }
 
 WndList<MenuPoint> &MenuBase::GetMenuPointsList() {
-	return _menu_points_list;
+    return _menu_points_list;
 }
 
 WndList<MenuBase> &MenuBase::GetPopupMenusList() {
-	return _popup_menus_list;
+    return _popup_menus_list;
 }
 
 void MenuBase::AttachMenuPoint(MenuPoint *menu_point) {
-	_menu_points_list.Append(menu_point);
-	menu_point->SetMenuParent(_hmenu);
+    _menu_points_list.Append(menu_point);
+    menu_point->SetMenuParent(_hmenu);
 }
 
 void MenuBase::AttachPopupMenu(MenuBase *popup_menu) {
-	_popup_menus_list.Append(popup_menu);
-	popup_menu->SetHParent((void *)_hmenu);
+    _popup_menus_list.Append(popup_menu);
+    popup_menu->SetHParent((void *)_hmenu);
 }
 
 void MenuBase::AppendSeparator() {
-	AppendMenuW(_hmenu, MF_SEPARATOR, NULL, NULL);
+    AppendMenuW(_hmenu, MF_SEPARATOR, NULL, NULL);
 }

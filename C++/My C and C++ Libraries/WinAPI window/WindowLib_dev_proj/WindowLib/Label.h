@@ -6,12 +6,12 @@
 
 class Label : public WndBase, public CallbackManager {
 private:
-	const char *_text;
+    const char *_text;
 
 public:
-	Label(const char *text, WndPairValue pos = { 0, 0 }, WndPairValue size = { 20, 20 });
+    Label(const char *text, WndPairValue pos = { 0, 0 }, WndPairValue size = { 20, 20 });
 
-	virtual void SetWndParent(WndBase *wnd) override;
+    virtual void SetWndParent(WndBase *wnd) override;
 };
 
 #endif

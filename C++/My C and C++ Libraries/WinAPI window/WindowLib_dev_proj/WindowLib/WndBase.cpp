@@ -32,7 +32,7 @@ void WndBase::GetWndText(char *buffer, const int &count) {
 }
 
 void WndBase::SetWndText(const char *text) {
-    int text_size = strlen(text) + 1/*null ending*/;
+    int text_size = (int)strlen(text) + 1/*null ending*/;
     wchar_t *w_buffer = new wchar_t[text_size] { 0 };
 
     MultiByteToWideChar(CP_UTF8, 0, text, text_size, w_buffer, text_size);

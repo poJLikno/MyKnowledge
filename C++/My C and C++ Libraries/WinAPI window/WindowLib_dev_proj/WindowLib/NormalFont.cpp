@@ -13,7 +13,7 @@ NormalFont::NormalFont() {
 }
 
 NormalFont::~NormalFont() {
-	DeleteObject((HGDIOBJ)_normal_font);
+    DeleteObject((HGDIOBJ)_normal_font);
 }
 
 void NormalFont::SetFont(const HWND &hwnd) {

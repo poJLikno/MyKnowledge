@@ -6,26 +6,26 @@
 
 class ComboBox : public WndBase, public CallbackManager {
 private:
-	using WndBase::GetWndText;
-	using WndBase::SetWndText;
+    using WndBase::GetWndText;
+    using WndBase::SetWndText;
 
 public:
-	ComboBox(WndPairValue pos = { 0, 0 }, WndPairValue size = { 20, 20 });
+    ComboBox(WndPairValue pos = { 0, 0 }, WndPairValue size = { 20, 20 });
 
-	virtual void SetWndParent(WndBase *wnd) override;
+    virtual void SetWndParent(WndBase *wnd) override;
 
-	void AddItem(const char *text);
+    void AddItem(const char *text);
 
-	void SelectItem(const int &id);
+    void SelectItem(const int &id);
 
-	int GetItemId();
+    int GetItemId();
 
-	/* Without null ending */
-	int GetItemLength();
+    /* Without null ending */
+    int GetItemLength();
 
-	void GetItem(char *buffer, const int &count);
+    void GetItem(char *buffer, const int &count);
 
-	void GetOldItem(char *buffer, int buffer_size);
+    void GetOldItem(char *buffer, int buffer_size);
 };
 
 #endif

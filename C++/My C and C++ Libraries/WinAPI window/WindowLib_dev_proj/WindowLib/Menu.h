@@ -5,36 +5,36 @@
 
 class Menu : public MenuBase {
 public:
-	Menu() {
-		_hmenu = CreateMenu();
-	}
+    Menu() {
+        _hmenu = CreateMenu();
+    }
 
-	virtual void SetHParent(void *hparent) override {
-		SetMenu((HWND)hparent, _hmenu);
-	}
+    virtual void SetHParent(void *hparent) override {
+        SetMenu((HWND)hparent, _hmenu);
+    }
 
-	// Menu point access & message detection
+    // Menu point access & message detection
 };
 
 class PopupMenu : public MenuBase {
 private:
-	const char *_text;
+    const char *_text;
 
 public:
-	PopupMenu(const char *text) : _text(text) {
-		_hmenu = CreatePopupMenu();
-	}
+    PopupMenu(const char *text) : _text(text) {
+        _hmenu = CreatePopupMenu();
+    }
 
-	virtual void SetHParent(void *hparent) override {
-		int text_size = (int)strlen(_text) + 1;
-		wchar_t *w_text = new wchar_t[text_size] { 0 };
-		MultiByteToWideChar(CP_UTF8, 0, _text, text_size, w_text, text_size);
+    virtual void SetHParent(void *hparent) override {
+        int text_size = (int)strlen(_text) + 1;
+        wchar_t *w_text = new wchar_t[text_size] { 0 };
+        MultiByteToWideChar(CP_UTF8, 0, _text, text_size, w_text, text_size);
 
-		AppendMenuW((HMENU)hparent, MF_POPUP, (UINT_PTR)_hmenu, w_text);
+        AppendMenuW((HMENU)hparent, MF_POPUP, (UINT_PTR)_hmenu, w_text);
 
-		delete[] w_text;
-		w_text = nullptr;
-	}
+        delete[] w_text;
+        w_text = nullptr;
+    }
 };
 
 #endif
