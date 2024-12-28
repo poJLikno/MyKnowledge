@@ -22,8 +22,9 @@ public:
     }
 };
 
+/* Use only with 'new' memory allocation */
 template <class T>
-class SmtObj/* Use only with 'new' memory allocation */
+class SmtObj
 {
 private:
     T *_ptr;
@@ -98,14 +99,24 @@ public:
         return (const T &)*get();
     }
 
+    T &operator[] (size_t index) noexcept
+    {
+        return _ptr[index];
+    }
+    const T &operator[] (size_t index) const noexcept
+    {
+        return _ptr[index];
+    }
+
     operator const T *() const noexcept
     {
         return _ptr;
     }
 };
 
+/* Use only with 'new' memory allocation */
 template <class T>
-class SmtObj<T[]>/* Use only with 'new' memory allocation */
+class SmtObj<T[]>
 {
 private:
     T *_ptr;
@@ -154,7 +165,7 @@ public:
 
     const T *get() const noexcept
     {
-        return (const T *)_ptr;
+        return _ptr;
     }
 
     T *operator-> () noexcept
@@ -172,7 +183,16 @@ public:
     }
     const T &operator* () const noexcept
     {
-        return (const T &)*get();
+        return *get();
+    }
+
+    T &operator[] (size_t index) noexcept
+    {
+        return _ptr[index];
+    }
+    const T &operator[] (size_t index) const noexcept
+    {
+        return _ptr[index];
     }
 
     operator const T *() const noexcept
@@ -206,6 +226,8 @@ int main(int argc, const char **argv)
 
     //a = SmtObj<int>(new int[4] { 1, 2, 3, 4 }, [](int *p)->void { delete[] p; });
     a = SmtObj<int[]>(new int[4] { 1, 2, 3, 4 });
+
+    a[0] = 12;
 
     std::cout << a[0] << "   " << a << "\n";
 
