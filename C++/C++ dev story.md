@@ -25,6 +25,7 @@ C++11: Революция (Modern C++)
  * std::exception_ptr.
  * noexcept: для методов класса.
  * Range-based for loop.
+ * ref-qualifier for methods.
 C++14: Работа над ошибками
 Шлифовка идей C++11.
  * Generic lambdas: auto в аргументах лямбд.
@@ -55,5 +56,6 @@ C++23: Косметический ремонт
  * std::print / std::println: Наконец-то современный и быстрый вывод текста (прощай, printf и тяжелый cout).
  * Многомерный operator[]: Теперь можно писать matrix[x, y].
  * if consteval: Явное разделение кода для компиляции и выполнения.
+ * Explicit object member function (this auto && self).
 Что дальше?
 Сейчас в разработке C++26, где мы ждем долгожданную Reflection (рефлексию) и дальнейшее упрощение работы с контрактами.
