@@ -1,0 +1,15 @@
+# .editorconfig
+# root = true
+
+[*]
+# Formatting settings
+indent_style = spaces
+indent_size = 4
+insert_final_newline = true
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+
+# Tab indentation for Makefile (no size specified)
+[Makefile]
+indent_style = tab
